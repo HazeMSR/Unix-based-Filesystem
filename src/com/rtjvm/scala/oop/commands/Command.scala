@@ -2,10 +2,7 @@ package com.rtjvm.scala.oop.commands
 
 import com.rtjvm.scala.oop.filesystem.State
 
-trait Command {
-
-  def apply(state: State): State
-
+trait Command extends (State => State) {
 }
 
 object Command {
@@ -31,6 +28,15 @@ object Command {
     val tokens: Array[String] = input.split(" ")
 
     if (tokens.isEmpty || tokens.isEmpty) emptyCommand
+/*    else tokens(0) match {
+      case MKDIR =>
+        if (tokens.length < 2) incompleteCommand(MKDIR)
+        else new Mkdir(tokens(1))
+      case LS =>
+        new Ls
+    }
+
+ */
     else if (MKDIR.equals(tokens(0))) {
       if (tokens.length < 2) incompleteCommand(MKDIR)
       else new Mkdir(tokens(1))
